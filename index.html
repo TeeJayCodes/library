@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Library</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="sidebar-shelf-container">
+        <div class="sidebar">
+            <p>To add a book to your library, fill out the form below and click the "Add Book" button</p>
+            <dialog open id="add-book">
+                <form method="dialog">
+                    <section>
+                        <p>
+                            <label for="title">Title:</label>
+                            <textarea id="title" name="title" row="2" cols="30"></textarea>
+                        </p>
+                    </section>
+                    <section>
+                        <p>
+                            <label for="author">Author:</label>
+                            <textarea id="author" name="author" row="2" cols="30"></textarea>
+                        </p>
+                    </section>
+                    <section>
+                        <p>
+                            <label for="numberOfPages">Number of Pages:</label>
+                            <input type="number" id="numberOfPages" name="numberOfPages" min="1" />
+                        </p>
+                    </section>
+                    <section>
+                        <fieldset>
+                            <legend>Read Status:</legend>
+
+                            <div>
+                                <input type="radio" id="read" name="read-status" value="Yes" />
+                                <label for="read">Read</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="not-read" name="read-status" value="No" checked/>
+                                <label for="not-read">Not Read</label>
+                            </div>
+                        </fieldset>
+                    </section>
+                    <div class="form-buttons">
+                        <button type="submit">Add Book</button>
+                        <button>Reset Form</button>
+                    </div>
+                </form>
+              </dialog>
+        </div>
+        <div class="shelf">
+
+        </div>
+    </div>
+</body>
+</html>

@@ -4,20 +4,19 @@ const bookShelf = document.querySelector(`.shelf`);
 //event listeners for form buttons
 let addBookButton = document.querySelector("form button:first-of-type");
 addBookButton.addEventListener("click", function(event) {
-	 		event.preventDefault(); 	
+	event.preventDefault(); 	
 });
 addBookButton.addEventListener("click", function() {
-		addBookToLibrary();
- 	});
+	addBookToLibrary();
+});
 
 let resetFormButton = document.querySelector("form button:last-of-type");
 resetFormButton.addEventListener("click", function(event) {
-	 		event.preventDefault(); 	
+	event.preventDefault(); 	
 });
 resetFormButton.addEventListener("click", function() {
-		resetForm();
- 	});
-
+	resetForm();
+});
 
 //book constructor
 function Book(title, author, numOfPages, read) {
@@ -25,21 +24,22 @@ function Book(title, author, numOfPages, read) {
 	this.author = author;
 	this.numOfPages = numOfPages;
 	this.read = read;
-	if (this.read == true) {
-		this.info = `${this.title} by ${this.author}, ${this.numOfPages}, has been read`;
-	} else {
-		this.info = `${this.title} by ${this.author}, ${this.numOfPages}, has NOT been read`;
-	}
-	return this.info;
 }
 
+//Book prototype function to toggle read status
+Book.prototype.toggleReadStatus = function() {
+	if (this.read == "No") {
+		this.read = "Yes";
+	} else {
+		this.read = "No";
+	}
+};
 
 function addBookToLibrary(title, author, numOfPages, read) {
 	let titleInput = document.querySelector('textarea[name="title"]').value;
 	let authorInput = document.querySelector('textarea[name="author"]').value;
 	let numberOfPagesInput = document.querySelector('input[name="numberOfPages"]').value;
 	let readStatusInput = document.querySelector('input[name="read-status"]:checked').value;
-	
 	if (titleInput == "" || authorInput == "" || numberOfPagesInput == "") {
 		alert("Please complete all fields.");
 	} else {
@@ -63,11 +63,10 @@ function clearShelf() {
 
 function displayBooks() {
 	const bookList = myLibrary.map(bookToDisplay => {
-		console.log(bookToDisplay);
 		let book = document.createElement("div");
 		book.classList.add("book");
 		bookShelf.appendChild(book);
-
+		//book title
 		let title = document.createElement("div");
 		title.classList.add("title");
 		let titleText = document.createTextNode("Title:");
@@ -79,7 +78,7 @@ function displayBooks() {
 		titleInfoPara.append(titleInfo)
 		title.appendChild(titleInfoPara);
 		book.appendChild(title);
-
+		//book author
 		let author = document.createElement("div");
 		author.classList.add("author");
 		let authorText = document.createTextNode("Author:");
@@ -91,7 +90,7 @@ function displayBooks() {
 		authorInfoPara.append(authorInfo)
 		author.appendChild(authorInfoPara);
 		book.appendChild(author);
-
+		//number of book pages
 		let pages = document.createElement("div");
 		pages.classList.add("numberOfPages");
 		let pagesText = document.createTextNode("Number of Pages:");
@@ -103,7 +102,7 @@ function displayBooks() {
 		pagesInfoPara.append(pagesInfo)
 		pages.appendChild(pagesInfoPara);
 		book.appendChild(pages);
-
+		//book read status
 		let read = document.createElement("div");
 		read.classList.add("readStatus");
 		let readText = document.createTextNode("Read:");
@@ -112,10 +111,25 @@ function displayBooks() {
 		read.appendChild(readPara);
 		let readInfo = document.createTextNode(`${bookToDisplay.read}`)
 		let readInfoPara = document.createElement("p");
-		readInfoPara.append(readInfo)
+		readInfoPara.append(readInfo);
 		read.appendChild(readInfoPara);
 		book.appendChild(read);
-		
-		const BOOK_INFO = `Title: ${bookToDisplay.title} Author: ${bookToDisplay.author} Number of Pages: ${bookToDisplay.numOfPages} Read: ${bookToDisplay.read}`;
+		//add a button to toggle the read status of a book
+		let toggleReadStatusButton = document.createElement("button");
+		toggleReadStatusButton.textContent = "Toggle Read Status";
+		book.append(toggleReadStatusButton);
+		toggleReadStatusButton.addEventListener("click", function() {
+			bookToDisplay.toggleReadStatus();
+			readInfo.textContent = bookToDisplay.read;
+		});
+		//add a button to delete a book
+		let deleteBookButton = document.createElement("button");
+		deleteBookButton.textContent = "Delete Book";
+		book.append(deleteBookButton);
+		deleteBookButton.addEventListener("click", function() {
+			let deletedBookIndex = myLibrary.indexOf(bookToDisplay);
+			myLibrary.splice(deletedBookIndex, 1);
+			book.remove();
+		});
 	});
 }

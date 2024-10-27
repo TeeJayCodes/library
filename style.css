@@ -25,7 +25,7 @@ dialog {
     display: flex;
     flex-wrap: wrap;
     align-content: start;
-    gap: 5px;
+    gap: 40px;
     height: 1030px;
     width: calc(100% - 60px);
     border: 10px solid #AD8B73;
@@ -35,13 +35,22 @@ dialog {
 .book {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 70px) 40px;
+    grid-template-rows: repeat(5, 70px) 40px;
     width: 20%;
     border: 10px solid #AD8B73
 }
 
 .book > div > p:first-child {
     font-weight: bold;
+}
+
+button.toggle {
+    margin-bottom: 30px;
+}
+
+button.delete {
+    background-color: #FF0000;
+    color: #FFFFFF;
 }
 
 .title  {

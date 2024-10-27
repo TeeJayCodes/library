@@ -117,6 +117,7 @@ function displayBooks() {
 		//add a button to toggle the read status of a book
 		let toggleReadStatusButton = document.createElement("button");
 		toggleReadStatusButton.textContent = "Toggle Read Status";
+		toggleReadStatusButton.classList.add("toggle");
 		book.append(toggleReadStatusButton);
 		toggleReadStatusButton.addEventListener("click", function() {
 			bookToDisplay.toggleReadStatus();
@@ -125,6 +126,7 @@ function displayBooks() {
 		//add a button to delete a book
 		let deleteBookButton = document.createElement("button");
 		deleteBookButton.textContent = "Delete Book";
+		deleteBookButton.classList.add("delete");
 		book.append(deleteBookButton);
 		deleteBookButton.addEventListener("click", function() {
 			let deletedBookIndex = myLibrary.indexOf(bookToDisplay);
